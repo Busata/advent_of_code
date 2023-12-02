@@ -14,7 +14,7 @@ fn main() {
         red: 12,
         green: 13,
         blue: 14,
-    };  
+    };
 
     let total_part_1 = total.iter()
         .filter(|game| game.max.blue <= max_cubes.blue && game.max.green <= max_cubes.green && game.max.red <= max_cubes.red)
