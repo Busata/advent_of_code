@@ -9,7 +9,6 @@ fn main() {
 
     let input = read_to_string(file_path).unwrap();
 
-
     let re = Regex::new(r"(\d+)|([^0-9])").unwrap();
 
     let mut part_numbers: Vec<i32> = Vec::new();
@@ -36,7 +35,6 @@ fn main() {
                     row.push(part.to_string());
                 }
             }
-
         }
 
         rows.push(row);
@@ -134,6 +132,7 @@ impl EngineSchematic {
 
     fn find_part_number(&self, row_idx: usize, col_idx: usize) -> HashSet<i32> {
         let mut coordinates: Vec<(usize, usize)> = Vec::new();
+
         for i in -1i32..2i32 {
             for j in -1i32.. 2i32 {
                 if i == 0 && j == 0 {
