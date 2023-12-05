@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 use std::env;
 use std::fs::read_to_string;
-use std::hash::Hash;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -50,7 +49,7 @@ fn find_total_scratch_cards(card_number: i32, scoring: &HashMap<i32, i32>) -> i3
 fn parse_numbers_line(winning_numbers: &str) -> Vec<i32> {
     winning_numbers
         .trim()
-        .split(' ')
+        .split_whitespace()
         .filter(|str| !str.is_empty())
         .map(|str| str.trim().parse::<i32>().unwrap()).collect()
 }
