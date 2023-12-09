@@ -20,6 +20,10 @@ fn main() {
     plays.sort_by(order_hands_part2);
     let part2 = calculate_result(&plays);
 
+    plays.iter().for_each(|pair| {
+        println!("{} {}", pair.0, pair.1);
+    });
+
     println!("{}", part1);
     println!("{}", part2);
 }
@@ -35,15 +39,7 @@ fn upgrade_card_with_joker(hand: &str, value_map: &HashMap<char, usize>) -> Stri
         .iter()
         .filter(|(char, value)| **char != 'J')
         .max_by(|a, b| {
-            let ordering = a.1.cmp(&b.1);
-
-            if ordering == Ordering::Equal {
-                let a = value_map.get(a.0).unwrap();
-                let b = value_map.get(b.0).unwrap();
-                return a.cmp(b);
-            } else {
-                ordering
-            }
+           a.1.cmp(&b.1)
         })
         .map(|(k, _v)| k);
 
