@@ -45,10 +45,12 @@ fn main() {
         steps
     }).sum();
 
-    println!("Part 1: {}", result);
+    println!("Part 2: {}", result);
 }
 
 fn expand_grid(column_size: usize, grid: &mut Vec<Vec<char>>) {
+    let insert_count = 1000000 - 1;
+
     let mut empty_columns: Vec<usize> = Vec::new();
 
     for col_idx in 0..column_size {
@@ -60,23 +62,12 @@ fn expand_grid(column_size: usize, grid: &mut Vec<Vec<char>>) {
     println!("Replacing {} columns", empty_columns.len());
     for idx in empty_columns.iter().rev() {
         println!("Replacing col {}", idx);
-
-        // Determine the actual number of insertions needed
-        let insert_count = 1000000 - 1;
-
         for row in grid.iter_mut() {
-            let inserts = vec!['.'; insert_count];
-
-            row.reserve(insert_count);
-
-            // Perform the insertion in one operation
-            row.splice(idx..idx, inserts.into_iter());
+            row.splice(idx..idx, vec!['.'; insert_count]);
         }
     }
 
-
     let mut empty_rows: Vec<usize> = Vec::new();
-
     for (idx, row) in grid.iter().enumerate() {
         if row.iter().all(|x| *x == '.') {
             empty_rows.push(idx);
@@ -88,8 +79,7 @@ fn expand_grid(column_size: usize, grid: &mut Vec<Vec<char>>) {
 
     for idx in empty_rows.iter().rev() {
         println!("Replacing row {}", idx);
-        let clones = std::iter::repeat(empty_row.clone()).take(1000000 - 1);
-
+        let clones = std::iter::repeat(empty_row.clone()).take(insert_count);
         grid.splice(idx..idx, clones);
     }
 
