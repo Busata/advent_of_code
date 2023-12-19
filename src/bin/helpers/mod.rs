@@ -72,15 +72,32 @@ pub enum Direction {
     Left,
     Right
 }
-
 impl Direction {
-    pub fn value(&self) -> (i32, i32) {
-        match self{
-            Direction::Up => (-1, 0),
-            Direction::Down => (1, 0),
-            Direction::Left => (0, -1),
-            Direction::Right => (0, 1),
+    pub fn from_instruction(instruction: &str) -> Direction {
+        match instruction {
+            "L" => Direction::Left,
+            "R" => Direction::Right,
+            "U" => Direction::Up,
+            "D" => Direction::Down,
+            "0" => Direction::Right,
+            "1" => Direction::Down,
+            "2" => Direction::Left,
+            "3" => Direction::Up,
+
+            _ => panic!("Could not match the character")
         }
+    }
+    pub fn value(&self) -> (i64, i64) {
+        match self{
+            Direction::Up => (0, 1),
+            Direction::Down => (0, -1),
+            Direction::Left => (-1, 0),
+            Direction::Right => (1, 0),
+        }
+    }
+
+    pub fn mul(&self, value: i64) -> (i64, i64) {
+        (self.value().0 * value, self.value().1 * value)
     }
 
     pub fn opposite(&self) -> Direction {
